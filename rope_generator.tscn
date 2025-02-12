@@ -1,12 +1,54 @@
-[gd_scene load_steps=2 format=3 uid="uid://bxiabck2v6ro6"]
+[gd_scene load_steps=9 format=3 uid="uid://bxiabck2v6ro6"]
 
 [ext_resource type="Script" path="res://rope_generator.gd" id="1_uk75b"]
+[ext_resource type="ImmediateMesh" uid="uid://bcu7htc6h4638" path="res://Rope.tres" id="1_x6skj"]
+[ext_resource type="Script" path="res://rope_end.gd" id="2_k4iee"]
 
-[node name="RopeGenerator" type="MeshInstance3D"]
+[sub_resource type="SphereMesh" id="SphereMesh_a1o0u"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_tlnsj"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_0w8ru"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_pcljh"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_k56gj"]
+radius = 0.2
+
+[node name="RopeGenerator" type="MeshInstance3D" node_paths=PackedStringArray("ROPE_START", "ROPE_END", "collision_shape")]
 top_level = true
+mesh = ExtResource("1_x6skj")
 script = ExtResource("1_uk75b")
+ITERATIONS = 5
+RESOLUTION = 3
+POINT_COUNT = 20
+ROPE_WIDTH = 0.01
+isDrawing = true
+ROPE_START = NodePath("RopeStart")
+ROPE_END = NodePath("RopeEnd")
+collision_shape = NodePath("RopeCollision")
 
-[node name="RopeStart" type="Node3D" parent="."]
+[node name="RopeStart" type="StaticBody3D" parent="."]
 
-[node name="RopeEnd" type="Node3D" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RopeStart"]
+mesh = SubResource("SphereMesh_a1o0u")
+skeleton = NodePath("")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RopeStart"]
+shape = SubResource("SphereShape3D_tlnsj")
+
+[node name="RopeEnd" type="CharacterBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 0)
+script = ExtResource("2_k4iee")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RopeEnd"]
+mesh = SubResource("SphereMesh_0w8ru")
+skeleton = NodePath("")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RopeEnd"]
+shape = SubResource("SphereShape3D_pcljh")
+
+[node name="RopeCollision" type="CharacterBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RopeCollision"]
+shape = SubResource("SphereShape3D_k56gj")

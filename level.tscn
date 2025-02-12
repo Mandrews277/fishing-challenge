@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://dhdn3rqypbepe"]
+
+[ext_resource type="PackedScene" uid="uid://bxiabck2v6ro6" path="res://rope_generator.tscn" id="1_b5qve"]
+
+[sub_resource type="Sky" id="Sky_8ol0q"]
+
+[sub_resource type="Environment" id="Environment_f0lu0"]
+sky = SubResource("Sky_8ol0q")
+ambient_light_color = Color(0.528168, 0.551348, 0.00906668, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_rjyfa"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_meovn"]
+
+[node name="Level" type="Node3D"]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.08033, 0, 6.63206)
+current = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_f0lu0")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
+transform = Transform3D(1, 0, 0, 0, 0.309382, 0.950938, 0, -0.950938, 0.309382, 0, 0, 0)
+
+[node name="RopeGenerator" parent="." instance=ExtResource("1_b5qve")]
+RESOLUTION = 6
+POINT_COUNT = 10
+ROPE_WIDTH = 0.2
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.34381, -0.687587, 0)
+mesh = SubResource("BoxMesh_rjyfa")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.34381, -0.687587, 0)
+shape = SubResource("BoxShape3D_meovn")
