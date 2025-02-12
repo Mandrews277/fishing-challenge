@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://ccrwqvc4dqjg4"]
+
+[ext_resource type="Script" path="res://rope_link.gd" id="1_cps1s"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_h4yko"]
+radius = 0.1
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_wa7hd"]
+radius = 0.1
+
+[node name="RigidBody3D" type="RigidBody3D"]
+script = ExtResource("1_cps1s")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_h4yko")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_wa7hd")
+
+[node name="PinJoint3D" type="PinJoint3D" parent="."]

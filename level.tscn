@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://dhdn3rqypbepe"]
+[gd_scene load_steps=7 format=3 uid="uid://dhdn3rqypbepe"]
 
-[ext_resource type="PackedScene" uid="uid://bxiabck2v6ro6" path="res://rope_generator.tscn" id="1_b5qve"]
+[ext_resource type="Script" path="res://moveable_cube.gd" id="2_batay"]
+[ext_resource type="PackedScene" uid="uid://cc4kqruh78pla" path="res://rope_generator_V2.tscn" id="3_ia055"]
 
 [sub_resource type="Sky" id="Sky_8ol0q"]
 
@@ -22,19 +23,19 @@ current = true
 environment = SubResource("Environment_f0lu0")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
-transform = Transform3D(1, 0, 0, 0, 0.309382, 0.950938, 0, -0.950938, 0.309382, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 0.309382, 0.950938, 0, -0.950938, 0.309382, -4.83743, 0, 0)
 
-[node name="RopeGenerator" parent="." instance=ExtResource("1_b5qve")]
-RESOLUTION = 6
-POINT_COUNT = 10
-ROPE_WIDTH = 0.2
+[node name="MoveableCube" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.46106, -0.753515, 0)
+axis_lock_linear_z = true
+script = ExtResource("2_batay")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.34381, -0.687587, 0)
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MoveableCube"]
 mesh = SubResource("BoxMesh_rjyfa")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.34381, -0.687587, 0)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MoveableCube"]
 shape = SubResource("BoxShape3D_meovn")
+
+[node name="RopeGeneratorV2" parent="." instance=ExtResource("3_ia055")]
+LINK_LENGTH = null
+LINK_WIDTH = null
