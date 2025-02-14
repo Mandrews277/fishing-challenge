@@ -1,33 +1,31 @@
-class_name RopeGeneratorV2 extends Node3D
+extends Node3D
 
 @export var LINKS : int
 @export var LINK_LENGTH : float
 @export var LINK_WIDTH : float
 
+@export var ROPE_LINK_SCENE : PackedScene  # Reference to your RopeLink.tscn scene
+
 var links_array : Array
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	# Create a RigidBody3D
-	var rigid_body = RigidBody3D.new()
+	
+	# Check if the ROPE_LINK_SCENE is assigned
+	if ROPE_LINK_SCENE == null:
+		push_error("ROPE_LINK_SCENE is not assigned!")
+		return
+	
+	# Create a new instance of the RopeLink scene
+	var rope_link_instance = ROPE_LINK_SCENE.instantiate().with_data(1, 0.2)
 
-	# Set mass (optional)
-	rigid_body.mass = 1.0
+	# Add the instance to the scene tree as a child of this node
+	add_child(rope_link_instance)
 
-	# Set gravity scale (optional)
-	rigid_body.gravity_scale = 1.0
-
-	# Add a CollisionShape3D (required for physics)
-	var collision_shape = CollisionShape3D.new()
-	rigid_body.add_child(collision_shape)
-
-	# Set the shape of the collision shape (e.g., a box)
-	var shape = BoxShape3D.new()
-	shape.size = Vector3(1, 1, 1)
-	collision_shape.shape = shape
-
-	# Add the RigidBody3D to the scene tree as a child of this node
-	add_child(rigid_body)
-
-	# Set the position of the rigid body relative to its parent
-	rigid_body.position = Vector3(0, 0, 0)
+	# Set the position of the instance (optional)
+	rope_link_instance.position = Vector3(0, 0, 0)
+	rope_link_instance.rotation.z = 90.0
+	var pin_joint = rope_link_instance.get_node("Joint")  # Ensure the PinJoint3D is named correctly
+	
+	pin_joint.node_a = get_node("RopeStart").get_path()
+	

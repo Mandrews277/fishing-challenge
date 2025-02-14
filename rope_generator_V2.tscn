@@ -1,9 +1,26 @@
-[gd_scene load_steps=2 format=3 uid="uid://bbhqw11rewci5"]
+[gd_scene load_steps=5 format=3 uid="uid://bbhqw11rewci5"]
 
 [ext_resource type="Script" path="res://rope_generator_V2.gd" id="1_c7s2g"]
+[ext_resource type="PackedScene" uid="uid://ccrwqvc4dqjg4" path="res://rope_link.tscn" id="2_da5qv"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_umihp"]
+radius = 0.1
+
+[sub_resource type="SphereMesh" id="SphereMesh_8124s"]
+radius = 0.2
+height = 0.4
 
 [node name="RopeGeneratorV2" type="Node3D"]
 script = ExtResource("1_c7s2g")
+ROPE_LINK_SCENE = ExtResource("2_da5qv")
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.13951)
+[node name="RopeStart" type="RigidBody3D" parent="."]
+axis_lock_linear_x = true
+axis_lock_linear_y = true
+axis_lock_linear_z = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RopeStart"]
+shape = SubResource("SphereShape3D_umihp")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RopeStart"]
+mesh = SubResource("SphereMesh_8124s")

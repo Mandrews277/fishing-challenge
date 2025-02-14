@@ -1,19 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://ccrwqvc4dqjg4"]
+[gd_scene load_steps=2 format=3 uid="uid://ccrwqvc4dqjg4"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_h4yko"]
-radius = 0.1
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_wa7hd"]
-radius = 0.1
+[ext_resource type="Script" path="res://rope_link.gd" id="1_nu0wl"]
 
 [node name="RigidBody3D" type="RigidBody3D"]
+script = ExtResource("1_nu0wl")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.9, 0)
-shape = SubResource("CapsuleShape3D_h4yko")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.9, 0)
-mesh = SubResource("CapsuleMesh_wa7hd")
-
-[node name="PinJoint3D" type="PinJoint3D" parent="."]
+[node name="Joint" type="HingeJoint3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+node_b = NodePath("..")

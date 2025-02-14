@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://dhdn3rqypbepe"]
+[gd_scene load_steps=8 format=3 uid="uid://dhdn3rqypbepe"]
 
 [ext_resource type="Script" path="res://moveable_cube.gd" id="2_batay"]
 [ext_resource type="PackedScene" uid="uid://jgdd2nsbisff" path="res://object_spawner.tscn" id="2_e5vl6"]
+[ext_resource type="PackedScene" uid="uid://bbhqw11rewci5" path="res://rope_generator_V2.tscn" id="3_52wga"]
 
 [sub_resource type="Sky" id="Sky_8ol0q"]
 
@@ -37,3 +38,6 @@ mesh = SubResource("BoxMesh_rjyfa")
 shape = SubResource("BoxShape3D_meovn")
 
 [node name="ObjectSpawner" parent="." instance=ExtResource("2_e5vl6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.23156, 0, 0)
+
+[node name="RopeGeneratorV2" parent="." instance=ExtResource("3_52wga")]

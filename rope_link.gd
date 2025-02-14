@@ -1,12 +1,31 @@
 class_name RopeLink extends RigidBody3D
 
-@export var LINK_LENGTH : float
-@export var LINK_WIDTH : float
+var link_length: float
+var link_radius : float
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
+func _init() -> void:
+	
+	var collision_node = CollisionShape3D.new()
+	add_child(collision_node)
+	
+	var shape = CapsuleShape3D.new()
+	shape.height = link_length
+	shape.radius = link_radius
+	shape.position = Vector3(0, -((link_length / 2) - link_radius), 0)
+	
+	collision_node.shape = shape
+	
+	var mesh_node = MeshInstance3D.new()
+	
+	var mesh = CapsuleMesh.new()
+	
+	mesh.radius = link_radius
+	mesh.height = link_length
+	mesh.position = Vector3(0, -((link_length / 2) - link_radius), 0)
+	
+	mesh_node.mesh = mesh
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func with_data(length : float, radius : float) -> RopeLink:
+	link_length = length
+	link_radius = radius
+	return self
