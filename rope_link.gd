@@ -10,19 +10,3 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
-
-func _set(property: StringName, value: Variant) -> bool:
-	if property == "LINK_LENGTH":
-		var CollisionShape = get_tree().root.get_child(1)
-		var MeshShape = get_tree().root.get_child(2)
-		var Joint = get_tree().root.get_child(3)
-		
-		CollisionShape.Shape().Height = LINK_LENGTH
-		
-		return true
-	elif property == "LINK_WIDTH":
-		
-		return true
-	else:
-		return false
-	

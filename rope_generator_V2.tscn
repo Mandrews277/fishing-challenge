@@ -1,21 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://cc4kqruh78pla"]
+[gd_scene load_steps=2 format=3 uid="uid://bbhqw11rewci5"]
 
-[ext_resource type="Script" path="res://rope_generator_v2.gd" id="1_8lb5w"]
-
-[sub_resource type="SphereMesh" id="SphereMesh_lf204"]
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_n48k6"]
+[ext_resource type="Script" path="res://rope_generator_V2.gd" id="1_c7s2g"]
 
 [node name="RopeGeneratorV2" type="Node3D"]
-script = ExtResource("1_8lb5w")
-LINKS = 3
-LINK_LENGTH = null
-LINK_WIDTH = null
+script = ExtResource("1_c7s2g")
 
-[node name="Rope" type="StaticBody3D" parent="."]
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Rope"]
-mesh = SubResource("SphereMesh_lf204")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Rope"]
-shape = SubResource("SphereShape3D_n48k6")
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.13951)

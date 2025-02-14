@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://dhdn3rqypbepe"]
 
 [ext_resource type="Script" path="res://moveable_cube.gd" id="2_batay"]
-[ext_resource type="PackedScene" uid="uid://cc4kqruh78pla" path="res://rope_generator_V2.tscn" id="3_ia055"]
+[ext_resource type="PackedScene" uid="uid://jgdd2nsbisff" path="res://object_spawner.tscn" id="2_e5vl6"]
 
 [sub_resource type="Sky" id="Sky_8ol0q"]
 
@@ -16,7 +16,7 @@ ambient_light_color = Color(0.528168, 0.551348, 0.00906668, 1)
 [node name="Level" type="Node3D"]
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.08033, 0, 6.63206)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.01968)
 current = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -26,7 +26,7 @@ environment = SubResource("Environment_f0lu0")
 transform = Transform3D(1, 0, 0, 0, 0.309382, 0.950938, 0, -0.950938, 0.309382, -4.83743, 0, 0)
 
 [node name="MoveableCube" type="CharacterBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.46106, -0.753515, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.53055, 0, 0)
 axis_lock_linear_z = true
 script = ExtResource("2_batay")
 
@@ -36,6 +36,4 @@ mesh = SubResource("BoxMesh_rjyfa")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MoveableCube"]
 shape = SubResource("BoxShape3D_meovn")
 
-[node name="RopeGeneratorV2" parent="." instance=ExtResource("3_ia055")]
-LINK_LENGTH = null
-LINK_WIDTH = null
+[node name="ObjectSpawner" parent="." instance=ExtResource("2_e5vl6")]
