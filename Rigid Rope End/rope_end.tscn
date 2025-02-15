@@ -3,8 +3,11 @@
 [ext_resource type="Script" path="res://Rigid Rope End/rope_end.gd" id="1_i2cjj"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_oafkc"]
+radius = 0.2
 
 [sub_resource type="SphereMesh" id="SphereMesh_x4dxv"]
+radius = 0.2
+height = 0.4
 
 [node name="RopeEnd" type="RigidBody3D"]
 axis_lock_linear_z = true
@@ -18,3 +21,6 @@ shape = SubResource("SphereShape3D_oafkc")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("SphereMesh_x4dxv")
+
+[node name="JoltPinJoint3D" type="JoltPinJoint3D" parent="."]
+node_b = NodePath("..")

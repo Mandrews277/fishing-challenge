@@ -1,5 +1,7 @@
 class_name RopeLink extends RigidBody3D
 
+@export var LINK_END_POSITION : Vector3
+
 var link_length: float
 var link_radius : float
 
@@ -23,6 +25,8 @@ func _setup_rope_link() -> void:
 	mesh.material = material
 	mesh_node.mesh = mesh
 	mesh_node.position = Vector3(0, -((link_length / 2) - link_radius), 0)
+	
+	LINK_END_POSITION = Vector3(0, -1, 0) * (link_length - (2 * link_radius))
 
 func with_data(length : float, radius : float) -> RopeLink:
 	link_length = length

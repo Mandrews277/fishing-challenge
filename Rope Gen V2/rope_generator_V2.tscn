@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://bbhqw11rewci5"]
+[gd_scene load_steps=6 format=3 uid="uid://bbhqw11rewci5"]
 
 [ext_resource type="Script" path="res://Rope Gen V2/rope_generator_V2.gd" id="1_c7s2g"]
 [ext_resource type="PackedScene" uid="uid://ccrwqvc4dqjg4" path="res://Rope Link/rope_link.tscn" id="2_da5qv"]
+[ext_resource type="PackedScene" uid="uid://drl4mo7rbiwd" path="res://Rigid Rope End/rope_end.tscn" id="3_e2n2s"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_umihp"]
 radius = 0.1
@@ -29,3 +30,6 @@ shape = SubResource("SphereShape3D_umihp")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="RopeStart"]
 mesh = SubResource("SphereMesh_8124s")
+
+[node name="RopeEnd" parent="." instance=ExtResource("3_e2n2s")]
+transform = Transform3D(1, 0.000350158, -0.000176279, -0.000350177, 1, -8.63183e-05, 0.000176241, 8.63961e-05, 1, 0, 0, 0)
