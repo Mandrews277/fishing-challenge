@@ -19,6 +19,8 @@ func _setup_rope_link() -> void:
 	var mesh = CapsuleMesh.new()
 	mesh.radius = link_radius
 	mesh.height = link_length
+	var material = StandardMaterial3D.new()
+	mesh.material = material
 	mesh_node.mesh = mesh
 	mesh_node.position = Vector3(0, -((link_length / 2) - link_radius), 0)
 

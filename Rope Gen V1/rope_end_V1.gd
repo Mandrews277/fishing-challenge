@@ -1,4 +1,4 @@
-class_name RopeEnd extends CharacterBody3D
+class_name RopeEnd_V1 extends CharacterBody3D
 
 @export var move_speed : float = 10
 

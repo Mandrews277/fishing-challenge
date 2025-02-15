@@ -4,6 +4,8 @@ extends Node3D
 @export var LINK_LENGTH : float
 @export var LINK_WIDTH : float
 
+
+
 @export var ROPE_LINK_SCENE : PackedScene  # Reference to your RopeLink.tscn scene
 
 var links_array : Array
@@ -38,4 +40,32 @@ func _ready() -> void:
 		
 		links_array.append(rope_link_instance)
 		
+	# Add a Sphere to the end of the rope that is able to be moved
+	
 	rotation_degrees.z = 90.0
+
+func _physics_process(delta: float) -> void:
+	for i in range(links_array.size() - 1):
+		var current_link = links_array[i]
+		var next_link = links_array[i + 1]
+		
+		var current_position = current_link.global_transform.origin
+		var next_position = next_link.global_transform.origin
+		var distance = current_position.distance_to(next_position)
+		
+		var rest_length = LINK_LENGTH
+		
+		var found_child
+		
+		for child in current_link.get_children():
+			if child is MeshInstance3D:
+				found_child = child
+		
+		current_link.print_tree()
+		
+		if distance > rest_length:
+			# Change the material color to red to indicate stress
+			current_link.get_node(found_child.get_path()).mesh.material.albedo_color = Color(1, 0, 0)
+		else:
+			# Change the material color to green to indicate no stress
+			current_link.get_node(found_child.get_path()).mesh.material.albedo_color = Color(0, 1, 0)

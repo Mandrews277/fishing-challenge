@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://bbhqw11rewci5"]
 
-[ext_resource type="Script" path="res://rope_generator_V2.gd" id="1_c7s2g"]
-[ext_resource type="PackedScene" uid="uid://ccrwqvc4dqjg4" path="res://rope_link.tscn" id="2_da5qv"]
+[ext_resource type="Script" path="res://Rope Gen V2/rope_generator_V2.gd" id="1_c7s2g"]
+[ext_resource type="PackedScene" uid="uid://ccrwqvc4dqjg4" path="res://Rope Link/rope_link.tscn" id="2_da5qv"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_umihp"]
 radius = 0.1
