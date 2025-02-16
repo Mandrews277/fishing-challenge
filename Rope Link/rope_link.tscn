@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Rope Link/rope_link.gd" id="1_nu0wl"]
 
 [node name="RigidBody3D" type="RigidBody3D"]
-transform = Transform3D(0.999985, -0.00469602, 0.00277653, 0.00469345, 0.999989, 0.000927775, -0.00278086, -0.000914718, 0.999996, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 axis_lock_linear_z = true
 axis_lock_angular_x = true
 axis_lock_angular_y = true
@@ -12,3 +12,5 @@ script = ExtResource("1_nu0wl")
 
 [node name="Joint" type="JoltPinJoint3D" parent="."]
 node_b = NodePath("..")
+solver_velocity_iterations = 200
+solver_position_iterations = 200

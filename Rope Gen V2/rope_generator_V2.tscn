@@ -12,24 +12,28 @@ radius = 0.2
 height = 0.4
 
 [node name="RopeGeneratorV2" type="Node3D"]
-transform = Transform3D(1, -0.000350173, 0.000176249, 0.000350162, 1, 8.638e-05, -0.000176271, -8.63344e-05, 1, 0.00572491, 0, 0.00141239)
+transform = Transform3D(1, -0.000350173, 0.000176249, 0.000350162, 1, 8.638e-05, -0.000176271, -8.63344e-05, 1, 0, 0, 0)
 script = ExtResource("1_c7s2g")
-LINKS = 40
+LINKS = 1
 LINK_LENGTH = 1.0
 LINK_WIDTH = 0.1
 ROPE_LINK_SCENE = ExtResource("2_da5qv")
 
 [node name="RopeStart" type="RigidBody3D" parent="."]
-axis_lock_linear_x = true
-axis_lock_linear_y = true
-axis_lock_linear_z = true
-axis_lock_angular_x = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RopeStart"]
+visible = false
 shape = SubResource("SphereShape3D_umihp")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="RopeStart"]
 mesh = SubResource("SphereMesh_8124s")
+
+[node name="SliderJoint3D" type="SliderJoint3D" parent="RopeStart"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+node_a = NodePath("..")
+node_b = NodePath("..")
+linear_limit/upper_distance = 0.0
+linear_limit/lower_distance = -2.0
 
 [node name="RopeEnd" parent="." instance=ExtResource("3_e2n2s")]
 transform = Transform3D(1, 0.000350158, -0.000176279, -0.000350177, 1, -8.63183e-05, 0.000176241, 8.63961e-05, 1, 0, 0, 0)

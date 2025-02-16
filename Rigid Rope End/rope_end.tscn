@@ -24,3 +24,5 @@ mesh = SubResource("SphereMesh_x4dxv")
 
 [node name="JoltPinJoint3D" type="JoltPinJoint3D" parent="."]
 node_b = NodePath("..")
+solver_velocity_iterations = 200
+solver_position_iterations = 200
