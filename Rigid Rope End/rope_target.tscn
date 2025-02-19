@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://b8d65yb2kg0am"]
+
+[ext_resource type="Script" path="res://Rigid Rope End/rope_target.gd" id="1_t1v4j"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_oafkc"]
+radius = 0.2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_og6hb"]
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.88163, 0.00022891, 0.779495, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_x4dxv"]
+material = SubResource("StandardMaterial3D_og6hb")
+radius = 0.2
+height = 0.4
+
+[node name="RopeTarget" type="RigidBody3D"]
+axis_lock_linear_z = true
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+gravity_scale = 0.0
+linear_damp = 10.0
+script = ExtResource("1_t1v4j")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_oafkc")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_x4dxv")
+
+[node name="Generic6DOFJoint3D" type="SliderJoint3D" parent="."]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+node_a = NodePath("..")
+exclude_nodes_from_collision = false
+linear_limit/upper_distance = 0.5
+linear_limit/lower_distance = 0.0
+linear_motion/softness = 16.0
+linear_motion/restitution = 4.0
+linear_motion/damping = 4.0

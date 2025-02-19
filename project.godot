@@ -15,6 +15,14 @@ run/main_scene="res://level.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
+[display]
+
+window/sdfgi/frames_to_update_lights=2
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/editor_physics/plugin.cfg", "res://addons/script-ide/plugin.cfg")
+
 [input]
 
 move_down={

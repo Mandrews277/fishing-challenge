@@ -1,5 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://dhdn3rqypbepe"]
+[gd_scene load_steps=6 format=3 uid="uid://dhdn3rqypbepe"]
 
+[ext_resource type="Script" path="res://debug_level.gd" id="1_6leqd"]
 [ext_resource type="Script" path="res://Other/moveable_cube.gd" id="2_batay"]
 [ext_resource type="PackedScene" uid="uid://bbhqw11rewci5" path="res://Rope Gen V2/rope_generator_V2.tscn" id="3_52wga"]
 
@@ -9,11 +10,8 @@
 sky = SubResource("Sky_8ol0q")
 ambient_light_color = Color(0.528168, 0.551348, 0.00906668, 1)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_lv8uy"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_kcbsx"]
-
 [node name="Level" type="Node3D"]
+script = ExtResource("1_6leqd")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_f0lu0")
@@ -22,7 +20,10 @@ environment = SubResource("Environment_f0lu0")
 transform = Transform3D(1, 0, 0, 0, 0.309382, 0.950938, 0, -0.950938, 0.309382, -4.83743, 0, 0)
 
 [node name="RopeGeneratorV2" parent="." instance=ExtResource("3_52wga")]
-LINK_LENGTH = 2.0
+LINKS = 50
+LINK_LENGTH = 0.5
+MIN_STRESS = 10.0
+MAX_STRESS = 30.0
 
 [node name="MoveableCamera" type="CharacterBody3D" parent="."]
 script = ExtResource("2_batay")
@@ -42,26 +43,3 @@ use_collision = true
 [node name="CSGBox3D3" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.43193, 2.25633, -0.0211568)
 use_collision = true
-
-[node name="RigidBody3D" type="RigidBody3D" parent="."]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 2.19439, 0.897756, 0)
-axis_lock_linear_y = true
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
-shape = SubResource("BoxShape3D_lv8uy")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
-mesh = SubResource("BoxMesh_kcbsx")
-
-[node name="SliderJoint3D" type="SliderJoint3D" parent="RigidBody3D"]
-node_a = NodePath("..")
-node_b = NodePath("../../RigidBody3D2")
-
-[node name="RigidBody3D2" type="RigidBody3D" parent="."]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 2.19439, 0.897756, 0)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D2"]
-shape = SubResource("BoxShape3D_lv8uy")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D2"]
-mesh = SubResource("BoxMesh_kcbsx")

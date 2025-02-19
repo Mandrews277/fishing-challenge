@@ -1,0 +1,21 @@
+class_name RopeTarget extends RigidBody3D
+
+@export var ROPE_END : RopeEnd
+
+const TARGET_SPEED = 40
+
+var _pid := Pid3D.new(0.1, 0.0, 0.0)
+
+func _ready() -> void:
+	get_node("Generic6DOFJoint3D").node_b = ROPE_END.get_path()
+
+func _physics_process(delta: float) -> void:
+	var direction = Vector3(
+		Input.get_action_strength("move_right") - Input.get_action_strength("move_left"), 
+		Input.get_action_strength("move_up") - Input.get_action_strength("move_down"), 
+		0.0).normalized()
+	
+	var target_velocity = direction * TARGET_SPEED
+	var velocity_error = target_velocity - linear_velocity
+	var correction_impulse = _pid.update(velocity_error, delta)
+	apply_central_force(direction * TARGET_SPEED)

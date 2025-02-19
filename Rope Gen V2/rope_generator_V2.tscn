@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://bbhqw11rewci5"]
+[gd_scene load_steps=8 format=3 uid="uid://bbhqw11rewci5"]
 
 [ext_resource type="Script" path="res://Rope Gen V2/rope_generator_V2.gd" id="1_c7s2g"]
 [ext_resource type="PackedScene" uid="uid://ccrwqvc4dqjg4" path="res://Rope Link/rope_link.tscn" id="2_da5qv"]
 [ext_resource type="PackedScene" uid="uid://drl4mo7rbiwd" path="res://Rigid Rope End/rope_end.tscn" id="3_e2n2s"]
+[ext_resource type="PackedScene" uid="uid://b8d65yb2kg0am" path="res://Rigid Rope End/rope_target.tscn" id="4_1lhwk"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_umihp"]
 radius = 0.1
@@ -11,29 +12,39 @@ radius = 0.1
 radius = 0.2
 height = 0.4
 
-[node name="RopeGeneratorV2" type="Node3D"]
-transform = Transform3D(1, -0.000350173, 0.000176249, 0.000350162, 1, 8.638e-05, -0.000176271, -8.63344e-05, 1, 0, 0, 0)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uw5gh"]
+transparency = 1
+vertex_color_use_as_albedo = true
+albedo_color = Color(0, 1, 0, 1)
+
+[node name="RopeGeneratorV2" type="Node3D" node_paths=PackedStringArray("ROPE_END", "ROPE_TARGET")]
 script = ExtResource("1_c7s2g")
 LINKS = 1
 LINK_LENGTH = 1.0
 LINK_WIDTH = 0.1
 ROPE_LINK_SCENE = ExtResource("2_da5qv")
+ROPE_END = NodePath("RopeEnd")
+ROPE_TARGET = NodePath("RopeTarget")
 
 [node name="RopeStart" type="RigidBody3D" parent="."]
+visible = false
+axis_lock_linear_x = true
+axis_lock_linear_y = true
+axis_lock_linear_z = true
+axis_lock_angular_x = true
+axis_lock_angular_y = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RopeStart"]
 visible = false
 shape = SubResource("SphereShape3D_umihp")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="RopeStart"]
+visible = false
 mesh = SubResource("SphereMesh_8124s")
-
-[node name="SliderJoint3D" type="SliderJoint3D" parent="RopeStart"]
-transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
-node_a = NodePath("..")
-node_b = NodePath("..")
-linear_limit/upper_distance = 0.0
-linear_limit/lower_distance = -2.0
+surface_material_override/0 = SubResource("StandardMaterial3D_uw5gh")
 
 [node name="RopeEnd" parent="." instance=ExtResource("3_e2n2s")]
 transform = Transform3D(1, 0.000350158, -0.000176279, -0.000350177, 1, -8.63183e-05, 0.000176241, 8.63961e-05, 1, 0, 0, 0)
+
+[node name="RopeTarget" parent="." node_paths=PackedStringArray("ROPE_END") instance=ExtResource("4_1lhwk")]
+ROPE_END = NodePath("../RopeEnd")
