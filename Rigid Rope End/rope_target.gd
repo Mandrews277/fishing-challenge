@@ -10,6 +10,11 @@ func _ready() -> void:
 	get_node("Generic6DOFJoint3D").node_b = ROPE_END.get_path()
 
 func _physics_process(delta: float) -> void:
+	if global_position.y > 0.0:
+		gravity_scale = 8
+	elif gravity_scale == 8:
+		gravity_scale = 0
+	
 	var direction = Vector3(
 		Input.get_action_strength("move_right") - Input.get_action_strength("move_left"), 
 		Input.get_action_strength("move_up") - Input.get_action_strength("move_down"), 

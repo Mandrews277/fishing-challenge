@@ -7,8 +7,9 @@ axis_lock_linear_z = true
 axis_lock_angular_x = true
 axis_lock_angular_y = true
 mass = 0.005
-gravity_scale = 0.1
-linear_damp = 5.0
+gravity_scale = 0.7
+linear_damp = 50.0
+angular_damp = 50.0
 script = ExtResource("1_nu0wl")
 
 [node name="Joint" type="JoltPinJoint3D" parent="."]

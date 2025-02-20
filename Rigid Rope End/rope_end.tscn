@@ -1,9 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://drl4mo7rbiwd"]
+[gd_scene load_steps=4 format=3 uid="uid://drl4mo7rbiwd"]
 
 [ext_resource type="Script" path="res://Rigid Rope End/rope_end.gd" id="1_i2cjj"]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_oafkc"]
-radius = 0.1
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n5l6x"]
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.355946, 0.565071, 1, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_ba47m"]
+material = SubResource("StandardMaterial3D_n5l6x")
+radius = 0.15
+height = 0.3
 
 [node name="RopeEnd" type="RigidBody3D"]
 collision_layer = 0
@@ -15,10 +21,10 @@ mass = 0.001
 gravity_scale = 0.0
 script = ExtResource("1_i2cjj")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("SphereShape3D_oafkc")
-
 [node name="JoltPinJoint3D" type="JoltPinJoint3D" parent="."]
 node_b = NodePath("..")
 solver_velocity_iterations = 200
 solver_position_iterations = 200
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_ba47m")

@@ -6,10 +6,6 @@ class_name RopeEnd extends RigidBody3D
 
 var _pid := Pid3D.new(0.1, 0.0, 0.0)
 
-func _ready() -> void:
-	var collision = get_node("CollisionShape3D")
-	collision.shape.radius = 0.1
-
 func _physics_process(delta: float) -> void:
 	DebugDraw2D.set_text("Distance To Target", TARGET_DISTANCE)
 	var target_velocity = TARGET_DIRECTION * TARGET_DISTANCE * TARGET_SPEED

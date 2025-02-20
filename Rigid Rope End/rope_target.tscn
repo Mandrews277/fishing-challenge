@@ -34,6 +34,3 @@ node_a = NodePath("..")
 exclude_nodes_from_collision = false
 linear_limit/upper_distance = 0.5
 linear_limit/lower_distance = 0.0
-linear_motion/softness = 16.0
-linear_motion/restitution = 4.0
-linear_motion/damping = 4.0

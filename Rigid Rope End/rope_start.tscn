@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://boht6elftxqxf"]
+
+[ext_resource type="Script" path="res://Rigid Rope End/rope_start.gd" id="1_iqss6"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_umihp"]
+radius = 0.1
+
+[sub_resource type="SphereMesh" id="SphereMesh_8124s"]
+radius = 0.2
+height = 0.4
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uw5gh"]
+transparency = 1
+vertex_color_use_as_albedo = true
+albedo_color = Color(0, 1, 0, 1)
+
+[node name="RopeStart" type="RigidBody3D"]
+axis_lock_linear_x = true
+axis_lock_linear_z = true
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+mass = 5.0
+gravity_scale = 0.01
+script = ExtResource("1_iqss6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_umihp")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_8124s")
+surface_material_override/0 = SubResource("StandardMaterial3D_uw5gh")

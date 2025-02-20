@@ -7,13 +7,22 @@ extends Node3D
 @export var MIN_STRESS : float
 @export var MAX_STRESS : float
 
-@export var ROPE_LINK_SCENE : PackedScene  # Reference to your RopeLink.tscn scene
+@export var ROPE_LINK_SCENE : PackedScene
+@export var ROPE_START : RopeStart
 @export var ROPE_END : RopeEnd
 @export var ROPE_TARGET : RopeTarget
+@export var BOAT : RigidBody3D
 
 var links_array : Array
 var broken : bool = false
+
+var lengthening_toggle : bool = false
+var shortening_toggle : bool = false
+var physics_calc_done : bool = false
+
+# Debug Variables
 var current_max_stress : float = 0.0
+var last_link_pos_var
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -40,12 +49,12 @@ func _ready() -> void:
 			pin_joint.node_b = rope_link_instance.get_path()  # Connect to the current link
 		else:
 			# Set the position of the instance (optional)
-			#var slider_joint = get_node("SliderJoint3D")
-			#slider_joint.node_a = get_node("RopeStart").get_path()
+			var slider_joint = BOAT.get_node("SliderJoint3D")
+			slider_joint.node_a = ROPE_START.get_path()
 			#slider_joint.node_b = rope_link_instance.get_path()
 			
 			var pin_joint = rope_link_instance.get_node("Joint")  # Ensure the PinJoint3D is named correctly
-			pin_joint.node_a = get_node("RopeStart").get_path()
+			pin_joint.node_a = ROPE_START.get_path()
 		
 		links_array.append(rope_link_instance)
 		
@@ -56,8 +65,12 @@ func _ready() -> void:
 	end_pin.node_a = links_array[LINKS - 1].get_path()
 
 func _physics_process(delta: float) -> void:
+	physics_calc_done = false
+	draw_debug_gizmo()
 	var color_val : float
-	for i in range(links_array.size() - 1):
+	
+	# Cycle through each link in the rope
+	for i in range(links_array.size()-1):
 		# Setup Variables to hold a reference to the current rope link
 		# and the next rope link for calculating the distance between them
 		var current_link = links_array[i]
@@ -76,10 +89,8 @@ func _physics_process(delta: float) -> void:
 		var next_position = next_link.global_transform.origin
 		var distance = current_position.distance_to(next_position) * 1000
 		
-
-		
+		# Draw Some Debug arrows and indicate the current max stress that has been put on the rope
 		#DebugDraw3D.draw_arrow(current_position, next_position, Color(1, 0, 0), 0.1)
-		
 		DebugDraw2D.set_text("Stress", current_max_stress)
 		
 		if distance > current_max_stress and !broken:
@@ -96,9 +107,30 @@ func _physics_process(delta: float) -> void:
 			print("I should be trying to break a link right now")
 			current_link.get_node("Joint").node_a = current_link.get_node("Joint").node_b
 			broken = true
-		
+			lengthening_toggle = false
+			shortening_toggle = false
+	
+	# END OF FOR LOOP
+	###############################################################################################################
+	
 	var last_link = links_array[links_array.size() - 1]
-	# Cycle through the final link's children to find one of type
+	var direction = ROPE_END.transform.origin.direction_to(ROPE_TARGET.transform.origin)
+	var distance = ROPE_END.transform.origin.distance_to(ROPE_TARGET.transform.origin)
+	var start_position = ROPE_START.position
+	var start_distance = start_position.distance_to(BOAT.get_node("HaulTarget").global_position)
+	
+	if lengthening_toggle and distance > LINK_LENGTH and !broken:
+		add_link(direction)
+	elif shortening_toggle and start_distance < 0.25 and !broken: 
+		if links_array.size() > 1:
+			haul_rope()
+		else:
+			shortening_toggle = false
+	
+	ROPE_END.TARGET_DIRECTION = direction
+	ROPE_END.TARGET_DISTANCE = distance
+	
+		# Cycle through the final link's children to find one of type
 	# MeshInstance3D. Set the color of that MeshInstance3D to green
 	for child in last_link.get_children():
 		if child is MeshInstance3D:
@@ -106,43 +138,79 @@ func _physics_process(delta: float) -> void:
 			found_child = child
 			last_link.get_node(found_child.get_path()).mesh.material.albedo_color = Color(0, 1, 0)
 			
-	var direction = ROPE_END.transform.origin.direction_to(ROPE_TARGET.transform.origin)
-	var distance = ROPE_END.transform.origin.distance_to(ROPE_TARGET.transform.origin)
-	
-	ROPE_END.TARGET_DIRECTION = direction
-	ROPE_END.TARGET_DISTANCE = distance
-	
-func generate_rope(num_links: int) -> void:
-	for i in range(num_links):
-		add_link()
+	physics_calc_done = true
 		
-func add_link() -> void:
+func add_link(direction : Vector3) -> void:
 	# Create a new instance of the RopeLink scene
-	var rope_link_instance = ROPE_LINK_SCENE.instantiate().with_data(LINK_LENGTH, LINK_WIDTH)
+	var new_link_instance = ROPE_LINK_SCENE.instantiate().with_data(LINK_LENGTH, LINK_WIDTH)
 	
 	# Add the instance to the scene tree as a child of this node
-	add_child(rope_link_instance)
+	add_child(new_link_instance)
 	
-	# Set the position of the new link
-	#if links_array.size() > 0:
-		#var last_link = links_array[-1]
-		#var pin_joint = rope_link_instance.get_node("Joint")
-		#var pin_joint_last = last_link.get_node("Joint")
-		#rope_link_instance.position = last_link.position + Vector3(0, -(LINK_LENGTH - (2 * LINK_WIDTH)), 0) # WILL HAVE TO UPDATE THIS LINE TO FIX LOCATION
-		#
-		#pin_joint.node_a = get_node("RopeStart").get_path()
-		#pin_joint_last.node_a = rope_link_instance.get_path()
-		#links_array.append(rope_link_instance)
-	#else:
-	#var slider_joint = get_node("JoltSliderJoint3D")
-	
-	#rope_link_instance.position = Vector3(0, -1, 0)
-	#slider_joint.node_a = get_node("RopeStart").get_path()
-	#slider_joint.node_b = rope_link_instance.get_path()
-	links_array.append(rope_link_instance)
-	#get_node("RopeEnd").position = links_array[0].LINK_END_POSITION
-	#get_node("RopeEnd/JoltPinJoint3D").node_a = links_array[0].get_path()
+	#Set the position of the new link
+	if links_array.size() > 0:
+		var last_link = links_array[-1]
 		
+		last_link.freeze = true
+		new_link_instance.freeze = true
+		ROPE_END.freeze = true
+		
+		new_link_instance.transform = last_link.LINK_END_NODE.global_transform
+		
+		last_link_pos_var = last_link.position + last_link.LINK_END_POSITION
+		var pin_joint = new_link_instance.get_node("Joint")
+		
+		pin_joint.node_a = last_link.get_path()  # Connect to the previous link
+		pin_joint.node_b = new_link_instance.get_path()  # Connect to the current link
+		
+		last_link.freeze = false
+		new_link_instance.freeze = false
+		ROPE_END.freeze = false
+		
+		ROPE_END.position = new_link_instance.LINK_END_NODE.global_position
+		var end_pin = ROPE_END.get_node("JoltPinJoint3D")
+		end_pin.node_a = new_link_instance.get_path()
+		
+		links_array.append(new_link_instance)
 
+func haul_rope() -> void:
+	var first_link = links_array[0]
+	var first_link_joint = first_link.get_node("Joint")
+	var second_link = links_array[1]
+	var second_link_joint = second_link.get_node("Joint")
+	
+	ROPE_START.freeze = true
+	first_link.freeze = true
+	second_link.freeze = true
+	
+	# Move Rope Start to the posistion of second link
+	first_link_joint.node_a = first_link.get_path()
+	
+	ROPE_START.position = second_link.global_position
+	
+	second_link_joint.node_a = ROPE_START.get_path()
+	
+	ROPE_START.freeze = false
+	first_link.freeze = false
+	second_link.freeze = false
+	
+	# remove first link from array and delete node from scene
+	links_array.remove_at(0)
+	first_link.queue_free()
+	
 func draw_debug_gizmo() -> void:
-	pass
+	DebugDraw2D.set_text("Lengthening?", lengthening_toggle)
+	DebugDraw2D.set_text("Shortening?", shortening_toggle)
+	
+func _input(event: InputEvent) -> void:
+	if Input.is_action_just_pressed("increase_rope_length"):
+		
+		lengthening_toggle = !lengthening_toggle
+		if shortening_toggle:
+			shortening_toggle = false
+	elif Input.is_action_just_pressed("decrease_rope_length"):
+		ROPE_START.HAULING = !ROPE_START.HAULING
+		shortening_toggle = !shortening_toggle
+		if lengthening_toggle:
+			lengthening_toggle = false
+		
