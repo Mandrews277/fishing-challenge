@@ -1,0 +1,8 @@
+TO DO & BUG LIST:
+
+Bug:
+ - Hauling the rope again doesn't work if you press E while the rope is hauling. Currently you have to stop hauling by pressing Q, then pressing E to lengthen. Issue is not present going from Extending the rope to hauling directly.
+
+To Do:
+- Rudimentary procedural level generation
+- Basic Fish class and basic AI behaviour

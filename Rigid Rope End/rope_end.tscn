@@ -8,8 +8,8 @@ albedo_color = Color(0.355946, 0.565071, 1, 1)
 
 [sub_resource type="SphereMesh" id="SphereMesh_ba47m"]
 material = SubResource("StandardMaterial3D_n5l6x")
-radius = 0.15
-height = 0.3
+radius = 0.1
+height = 0.2
 
 [node name="RopeEnd" type="RigidBody3D"]
 collision_layer = 0
@@ -19,6 +19,7 @@ axis_lock_angular_x = true
 axis_lock_angular_y = true
 mass = 0.001
 gravity_scale = 0.0
+linear_damp = 100.0
 script = ExtResource("1_i2cjj")
 
 [node name="JoltPinJoint3D" type="JoltPinJoint3D" parent="."]
@@ -27,4 +28,5 @@ solver_velocity_iterations = 200
 solver_position_iterations = 200
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+visible = false
 mesh = SubResource("SphereMesh_ba47m")

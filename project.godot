@@ -15,13 +15,18 @@ run/main_scene="res://level.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+PhantomCameraManager="*res://addons/phantom_camera/scripts/managers/phantom_camera_manager.gd"
+
 [display]
 
+window/vsync/vsync_mode=0
 window/sdfgi/frames_to_update_lights=2
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/editor_physics/plugin.cfg", "res://addons/script-ide/plugin.cfg")
+enabled=PackedStringArray("res://addons/GoNote/plugin.cfg", "res://addons/editor_physics/plugin.cfg", "res://addons/phantom_camera/plugin.cfg", "res://addons/script-ide/plugin.cfg")
 
 [input]
 

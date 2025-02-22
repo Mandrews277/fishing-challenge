@@ -1,15 +1,20 @@
-[gd_scene load_steps=2 format=3 uid="uid://ccrwqvc4dqjg4"]
+[gd_scene load_steps=3 format=3 uid="uid://ccrwqvc4dqjg4"]
 
 [ext_resource type="Script" path="res://Rope Link/rope_link.gd" id="1_nu0wl"]
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_sq161"]
+friction = 0.0
+
 [node name="RigidBody3D" type="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0115209, 0.0156088, -0.0160112)
 axis_lock_linear_z = true
 axis_lock_angular_x = true
 axis_lock_angular_y = true
 mass = 0.005
-gravity_scale = 0.7
-linear_damp = 50.0
-angular_damp = 50.0
+physics_material_override = SubResource("PhysicsMaterial_sq161")
+gravity_scale = 0.1
+linear_damp = 25.0
+angular_damp = 25.0
 script = ExtResource("1_nu0wl")
 
 [node name="Joint" type="JoltPinJoint3D" parent="."]

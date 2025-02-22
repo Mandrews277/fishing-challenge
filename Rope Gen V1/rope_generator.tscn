@@ -1,24 +1,22 @@
-[gd_scene load_steps=5 format=3 uid="uid://bxiabck2v6ro6"]
+[gd_scene load_steps=5 format=3 uid="uid://ds6ydrovixnde"]
 
 [ext_resource type="Script" path="res://Rope Gen V1/rope_generator.gd" id="1_uk75b"]
-[ext_resource type="ImmediateMesh" uid="uid://bcu7htc6h4638" path="res://Rope Gen V1/Rope.tres" id="1_x6skj"]
+
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_nkvxh"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_a1o0u"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_tlnsj"]
 
-[node name="RopeGenerator" type="MeshInstance3D" node_paths=PackedStringArray("ROPE_START", "ROPE_END", "collision_shape")]
+[node name="RopeGenerator" type="MeshInstance3D"]
 top_level = true
-mesh = ExtResource("1_x6skj")
+mesh = SubResource("ImmediateMesh_nkvxh")
 script = ExtResource("1_uk75b")
 ITERATIONS = 5
 RESOLUTION = 3
 POINT_COUNT = 20
-ROPE_WIDTH = 0.01
+ROPE_WIDTH = 0.1
 isDrawing = true
-ROPE_START = NodePath("RopeStart")
-ROPE_END = NodePath("")
-collision_shape = NodePath("")
 
 [node name="RopeStart" type="StaticBody3D" parent="."]
 

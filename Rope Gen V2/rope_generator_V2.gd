@@ -3,7 +3,7 @@ extends Node3D
 @export var LINKS : int
 @export var LINK_LENGTH : float
 @export var LINK_WIDTH : float
-
+@export var RESOLUTION : int
 @export var MIN_STRESS : float
 @export var MAX_STRESS : float
 
@@ -13,7 +13,7 @@ extends Node3D
 @export var ROPE_TARGET : RopeTarget
 @export var BOAT : RigidBody3D
 
-var links_array : Array
+@export var links_array : Array
 var broken : bool = false
 
 var lengthening_toggle : bool = false
@@ -21,8 +21,18 @@ var shortening_toggle : bool = false
 var physics_calc_done : bool = false
 
 # Debug Variables
-var current_max_stress : float = 0.0
+var current_max_stress : float
 var last_link_pos_var
+
+# Variables for mesh generation
+var Points : PackedVector3Array
+var Points_old : PackedVector3Array
+var rope_length : float
+var point_spacing : float
+var vertex_array : Array
+var index_array : Array
+var normal_array : Array
+var tangent_array : Array
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -100,7 +110,7 @@ func _physics_process(delta: float) -> void:
 		# Then remap that from 0 to 1 to set the color according to the stress.
 		var clamped_distance : float = clamp(distance, MIN_STRESS, MAX_STRESS)
 		color_val = remap(clamped_distance, MIN_STRESS, MAX_STRESS, 0, 1)
-		current_link.get_node(found_child.get_path()).mesh.material.albedo_color = Color(color_val, 1-color_val, 0)
+		#current_link.get_node(found_child.get_path()).mesh.material.albedo_color = Color(color_val, 1-color_val, 0)
 		
 		# Break the link if the stress is ever over the set max
 		if distance > MAX_STRESS and !broken:
@@ -119,7 +129,7 @@ func _physics_process(delta: float) -> void:
 	var start_position = ROPE_START.position
 	var start_distance = start_position.distance_to(BOAT.get_node("HaulTarget").global_position)
 	
-	if lengthening_toggle and distance > LINK_LENGTH and !broken:
+	if lengthening_toggle and distance > LINK_LENGTH * 1.1 and !broken:
 		add_link(direction)
 	elif shortening_toggle and start_distance < 0.25 and !broken: 
 		if links_array.size() > 1:
@@ -136,7 +146,7 @@ func _physics_process(delta: float) -> void:
 		if child is MeshInstance3D:
 			var found_child
 			found_child = child
-			last_link.get_node(found_child.get_path()).mesh.material.albedo_color = Color(0, 1, 0)
+			#last_link.get_node(found_child.get_path()).mesh.material.albedo_color = Color(0, 1, 0)
 			
 	physics_calc_done = true
 		
@@ -194,6 +204,9 @@ func haul_rope() -> void:
 	first_link.freeze = false
 	second_link.freeze = false
 	
+	var joint = BOAT.get_node("SliderJoint3D")
+	joint.node_a = ROPE_START.get_path()
+	
 	# remove first link from array and delete node from scene
 	links_array.remove_at(0)
 	first_link.queue_free()
@@ -204,13 +217,143 @@ func draw_debug_gizmo() -> void:
 	
 func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("increase_rope_length"):
-		
-		lengthening_toggle = !lengthening_toggle
-		if shortening_toggle:
+		if shortening_toggle or !lengthening_toggle:
 			shortening_toggle = false
-	elif Input.is_action_just_pressed("decrease_rope_length"):
-		ROPE_START.HAULING = !ROPE_START.HAULING
-		shortening_toggle = !shortening_toggle
-		if lengthening_toggle:
+			ROPE_START.HAULING = false
+			lengthening_toggle = true
+		elif lengthening_toggle:
+			ROPE_START.HAULING = false
 			lengthening_toggle = false
+			
+	elif Input.is_action_just_pressed("decrease_rope_length"):
+		if lengthening_toggle or !shortening_toggle:
+			lengthening_toggle = false
+			ROPE_START.HAULING = true
+			shortening_toggle = true
+		elif shortening_toggle:
+			ROPE_START.HAULING = false
+			shortening_toggle = false
+
+func GenerateMesh():
+	
+	vertex_array.clear()
+	index_array.clear()
+	
+	PreparePoints()
+	CalculateNormals()
+	
+	var mesh = get_node("MeshInstance3D").mesh
+	
+	for p in range(Points.size()-1):
+		var center : Vector3 = Points[p]
 		
+		var forward = tangent_array[p]
+		var norm = normal_array[p]
+		var bitangent = norm.cross(forward).normalized()
+		
+		# Current Resolution
+		for c in range(RESOLUTION):
+			var angle = (float(c) / RESOLUTION) * 2.0 * PI
+			
+			var xVal = sin(angle) * LINK_WIDTH
+			var yVal = cos(angle) * LINK_WIDTH
+			
+			var point = (norm * xVal) + (bitangent * yVal) + center
+			vertex_array.append(point)
+			
+			if p < Points.size() - 1:
+				var start_index = RESOLUTION * p
+			
+				index_array.append(start_index + c);
+				index_array.append(start_index + c + RESOLUTION);
+				index_array.append(start_index + (c + 1) % RESOLUTION);
+				
+				index_array.append(start_index + (c + 1) % RESOLUTION);
+				index_array.append(start_index + c + RESOLUTION);
+				index_array.append(start_index + (c + 1) % RESOLUTION + RESOLUTION);
+	
+	mesh.clear_surfaces()
+	
+	print("Vertex Array Size:", vertex_array.size())
+	print("Points Array Size:", Points.size())
+	print("Links Array Size:", links_array.size())
+	
+	mesh.surface_begin(Mesh.PRIMITIVE_TRIANGLES)
+	
+	for i in range(Points.size()):
+		var p1 = vertex_array[index_array[3*i]]
+		var p2 = vertex_array[index_array[3*i+1]]
+		var p3 = vertex_array[index_array[3*i+2]]
+		
+		var tangent = Plane(p1, p2, p3)
+		var normal = tangent.normal
+		
+		mesh.surface_set_tangent(tangent)
+		mesh.surface_set_normal(normal)
+		mesh.surface_add_vertex(p1)
+		
+		mesh.surface_set_tangent(tangent)
+		mesh.surface_set_normal(normal)
+		mesh.surface_add_vertex(p2)
+		
+		mesh.surface_set_tangent(tangent)
+		mesh.surface_set_normal(normal)
+		mesh.surface_add_vertex(p3)
+		
+	mesh.surface_end()
+	
+func CalculateNormals():
+	normal_array.clear()
+	tangent_array.clear()
+	
+	for i in range(Points.size()-1):
+		var tangent := Vector3(0,0,0)
+		var normal := Vector3(0,0,0)
+		
+		var temp_helper_vector := Vector3(0,0,0)
+		
+		# First point
+		if i == 0:
+			tangent = (Points[i+1] - Points[i]).normalized()
+		
+		# Last Point
+		elif i == links_array.size() - 1:
+			tangent = (Points[i] - Points[i-1]).normalized()
+		
+		# Points in Between
+		else:
+			tangent = (Points[i+1] - Points[i]).normalized() + (Points[i] - Points[i-1]).normalized()
+			
+		if i == 0:
+			temp_helper_vector = -Vector3.FORWARD if (tangent.dot(Vector3.UP) > 0.5) else Vector3.UP
+			
+			normal = temp_helper_vector.cross(tangent).normalized()
+			
+			tangent_array.append(tangent)
+			normal_array.append(normal)
+			
+		else:
+			var tangent_prev = tangent_array[i-1]
+			var normal_prev = normal_array[i-1]
+			var bitangent = tangent_prev.cross(tangent)
+			
+			if bitangent.length() == 0:
+				normal = normal_prev
+			else:
+				var bitangent_dir = bitangent.normalized()
+				var theta = acos(tangent_prev.dot(tangent))
+				
+				var rotate_matrix = Basis(bitangent_dir, theta)
+				normal = rotate_matrix * normal_prev
+				
+			tangent_array.append(tangent)
+			normal_array.append(normal)
+			
+func PreparePoints():
+	Points.clear()
+	#Points_old.clear()
+	
+	for i in range(links_array.size()):
+		Points.append(links_array[i].position)
+		
+	Points.append(ROPE_END.position)

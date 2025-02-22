@@ -1,0 +1,3 @@
+- Make a system to update max tension, forces on the Rope Start, End, and Target based on the rope length.
+- Rudimentary procedural level generation
+- Basic Fish class and basic AI behaviour
