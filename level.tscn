@@ -64,18 +64,18 @@ shape = SubResource("BoxShape3D_syika")
 mesh = SubResource("PlaneMesh_1jq5d")
 
 [node name="PhantomCamera3D" type="Node3D" parent="." node_paths=PackedStringArray("follow_target")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10)
 top_level = true
 script = ExtResource("6_xas65")
 follow_mode = 2
 follow_target = NodePath("../RopeGeneratorV2/RopeTarget")
 tween_resource = SubResource("Resource_0oukm")
-follow_offset = Vector3(0, 0, 1)
+follow_offset = Vector3(0, 0, 10)
 follow_damping = true
 follow_damping_value = Vector3(1, 1, 0.1)
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10)
 
 [node name="PhantomCameraHost" type="Node" parent="Camera3D"]
 process_priority = 300

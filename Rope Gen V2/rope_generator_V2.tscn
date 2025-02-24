@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" path="res://Rope Gen V2/rope_generator_V2.gd" id="1_c7s2g"]
 [ext_resource type="PackedScene" uid="uid://ccrwqvc4dqjg4" path="res://Rope Link/rope_link.tscn" id="2_da5qv"]
-[ext_resource type="PackedScene" uid="uid://boht6elftxqxf" path="res://Rigid Rope End/rope_start.tscn" id="3_cofhd"]
+[ext_resource type="PackedScene" uid="uid://t51iw3klct4q" path="res://Rigid Rope End/rope_start.tscn" id="3_cofhd"]
 [ext_resource type="PackedScene" uid="uid://drl4mo7rbiwd" path="res://Rigid Rope End/rope_end.tscn" id="3_e2n2s"]
-[ext_resource type="PackedScene" uid="uid://bh2c5ky53gd1u" path="res://Rigid Rope End/rope_target.tscn" id="4_1lhwk"]
+[ext_resource type="PackedScene" uid="uid://hiu4orao1iea" path="res://Rigid Rope End/rope_target.tscn" id="4_1lhwk"]
 
 [sub_resource type="ImmediateMesh" id="ImmediateMesh_wkt0x"]
 
@@ -15,7 +15,8 @@ ROPE_START = NodePath("RopeStart")
 ROPE_END = NodePath("RopeEnd")
 ROPE_TARGET = NodePath("RopeTarget")
 
-[node name="RopeStart" parent="." instance=ExtResource("3_cofhd")]
+[node name="RopeStart" parent="." node_paths=PackedStringArray("ROPE_END") instance=ExtResource("3_cofhd")]
+ROPE_END = NodePath("../RopeEnd")
 
 [node name="RopeEnd" parent="." instance=ExtResource("3_e2n2s")]
 transform = Transform3D(1, 0.000350158, -0.000176279, -0.000350177, 1, -8.63183e-05, 0.000176241, 8.63961e-05, 1, 0.011519, 0.00755191, -0.00860506)

@@ -11,10 +11,7 @@ func _ready() -> void:
 	get_node("Generic6DOFJoint3D").node_b = ROPE_END.get_path()
 	
 func _process(delta: float) -> void:
-	var mesh = LINK.mesh
-	
-	mesh.height = transform.origin.distance_to(ROPE_END.global_position) + (3 * mesh.radius)
-	LINK.position = Vector3(0, (mesh.height/2) - (3 * mesh.radius), 0)
+	pass
 
 func _physics_process(delta: float) -> void:
 	if global_position.y > 0.0:

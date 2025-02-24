@@ -28,7 +28,7 @@ func _setup_rope_link() -> void:
 	mesh.radius = link_radius
 	mesh.height = link_length
 	mesh.rings = 1
-	mesh.radial_segments = 6
+	mesh.radial_segments = 5
 	mesh_node.mesh = mesh
 	mesh_node.position = Vector3(0, -((link_length / 2) - link_radius), 0)
 	

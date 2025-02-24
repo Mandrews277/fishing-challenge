@@ -1,3 +1,5 @@
 - Make a system to update max tension, forces on the Rope Start, End, and Target based on the rope length.
 - Rudimentary procedural level generation
 - Basic Fish class and basic AI behaviour
+
+- to make the rope seamless at the end of the rope, add functionality to add_link() and use the same transform as the new link is being added.

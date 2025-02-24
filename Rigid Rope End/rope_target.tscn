@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bh2c5ky53gd1u"]
+[gd_scene load_steps=6 format=3 uid="uid://hiu4orao1iea"]
 
 [ext_resource type="Script" path="res://Rigid Rope End/rope_target.gd" id="1_t1v4j"]
 
@@ -17,10 +17,6 @@ material = SubResource("StandardMaterial3D_og6hb")
 radius = 0.1
 height = 0.2
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_s0ie5"]
-radius = 0.025
-height = 0.25
-
 [node name="RopeTarget" type="RigidBody3D" node_paths=PackedStringArray("LINK")]
 axis_lock_linear_z = true
 axis_lock_angular_x = true
@@ -29,7 +25,7 @@ physics_material_override = SubResource("PhysicsMaterial_s0hp3")
 gravity_scale = 0.0
 linear_damp = 10.0
 script = ExtResource("1_t1v4j")
-LINK = NodePath("MeshInstance3D2")
+LINK = NodePath("")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_oafkc")
@@ -47,7 +43,3 @@ linear_limit/lower_distance = 0.0
 linear_limit/softness = 0.01
 linear_limit/restitution = 0.01
 linear_limit/damping = 16.0
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-mesh = SubResource("CapsuleMesh_s0ie5")
-skeleton = NodePath("../Generic6DOFJoint3D")
