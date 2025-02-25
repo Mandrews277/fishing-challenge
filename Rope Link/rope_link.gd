@@ -38,6 +38,9 @@ func _setup_rope_link() -> void:
 	add_child(link_end)
 	link_end.position = Vector3(0, -1, 0) * (link_length - (2 * link_radius))
 	LINK_END_NODE = link_end
+	
+	#collision_layer = 8
+	#collision_mask = 0
 
 func with_data(length : float, radius : float) -> RopeLink:
 	link_length = length

@@ -87,62 +87,74 @@ script = ExtResource("7_nu0pc")
 [node name="Obstacle" type="CSGCylinder3D" parent="TempEnvironment"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -2.08759, -2.04767, 0)
 use_collision = true
+collision_mask = 128
 height = 1.0
 
 [node name="Obstacle2" type="CSGCylinder3D" parent="TempEnvironment"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 2.84003, -6.93399, 0)
 use_collision = true
+collision_mask = 128
 height = 1.0
 
 [node name="Obstacle12" type="CSGCylinder3D" parent="TempEnvironment"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 1.77116, -11.7606, -9.53674e-07)
 use_collision = true
+collision_mask = 128
 height = 1.0
 
 [node name="Obstacle13" type="CSGCylinder3D" parent="TempEnvironment"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -1.67431, -14.7677, -1.90735e-06)
 use_collision = true
+collision_mask = 128
 height = 1.0
 
 [node name="Obstacle14" type="CSGCylinder3D" parent="TempEnvironment"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 2.16014, -19.9468, -1.90735e-06)
 use_collision = true
+collision_mask = 128
 height = 1.0
 
 [node name="Obstacle18" type="CSGCylinder3D" parent="TempEnvironment"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 12.0204, -17.7516, -2.86102e-06)
 use_collision = true
+collision_mask = 128
 height = 1.0
 
 [node name="Obstacle3" type="CSGCylinder3D" parent="TempEnvironment"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 4.15084, -1.81553, 0)
 use_collision = true
+collision_mask = 128
 height = 1.0
 
 [node name="Obstacle4" type="CSGCylinder3D" parent="TempEnvironment"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 3.45001, -1.9624, 0)
 use_collision = true
+collision_mask = 128
 height = 1.0
 
 [node name="Obstacle5" type="CSGCylinder3D" parent="TempEnvironment"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 3.7256, -1.47756, 0)
 use_collision = true
+collision_mask = 128
 height = 1.0
 
 [node name="Obstacle6" type="CSGCylinder3D" parent="TempEnvironment"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -4.48301, -4.49985, 0)
 use_collision = true
+collision_mask = 128
 height = 1.0
 
 [node name="Obstacle7" type="CSGCylinder3D" parent="TempEnvironment"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 4.48209, -4.20302, 0)
 use_collision = true
+collision_mask = 128
 radius = 0.91033
 height = 1.0
 
 [node name="Obstacle8" type="CSGCylinder3D" parent="TempEnvironment"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -1.04807, -6.02496, 0)
 use_collision = true
+collision_mask = 128
 radius = 0.91033
 height = 1.0
 
@@ -159,6 +171,7 @@ height = 1.0
 [node name="Obstacle10" type="CSGCylinder3D" parent="TempEnvironment"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 5.13772, -14.1255, 0)
 use_collision = true
+collision_mask = 128
 radius = 0.91033
 height = 1.0
 
@@ -175,6 +188,7 @@ height = 1.0
 [node name="Obstacle9" type="CSGCylinder3D" parent="TempEnvironment"]
 transform = Transform3D(0.862381, -2.21293e-08, -0.50626, -0.50626, -3.76959e-08, -0.862381, 0, 1, -4.37114e-08, -4.73529, -11.19, 0)
 use_collision = true
+collision_mask = 128
 radius = 0.91033
 height = 1.0
 
@@ -191,6 +205,7 @@ height = 1.0
 [node name="Obstacle17" type="CSGCylinder3D" parent="TempEnvironment"]
 transform = Transform3D(0.377663, -4.04743e-08, -0.925943, -0.925943, -1.65082e-08, -0.377663, 0, 1, -4.37114e-08, 14.3652, -14.6088, 0)
 use_collision = true
+collision_mask = 128
 radius = 0.91033
 height = 1.0
 
@@ -207,6 +222,7 @@ height = 1.0
 [node name="Obstacle11" type="CSGCylinder3D" parent="TempEnvironment"]
 transform = Transform3D(0.862381, -2.21293e-08, -0.50626, -0.50626, -3.76959e-08, -0.862381, 0, 1, -4.37114e-08, -3.49523, -23.8843, 0)
 use_collision = true
+collision_mask = 128
 radius = 2.0
 height = 1.0
 sides = 10
@@ -226,6 +242,7 @@ sides = 10
 [node name="Obstacle15" type="CSGCylinder3D" parent="TempEnvironment"]
 transform = Transform3D(0.862381, -2.21293e-08, -0.50626, -0.50626, -3.76959e-08, -0.862381, 0, 1, -4.37114e-08, 6.6223, -17.0397, 0)
 use_collision = true
+collision_mask = 128
 radius = 2.0
 height = 1.0
 sides = 10
@@ -245,6 +262,7 @@ sides = 10
 [node name="Obstacle16" type="CSGCylinder3D" parent="TempEnvironment"]
 transform = Transform3D(0.862381, -2.21293e-08, -0.50626, -0.50626, -3.76959e-08, -0.862381, 0, 1, -4.37114e-08, 11.3669, -24.5121, 0)
 use_collision = true
+collision_mask = 128
 radius = 2.0
 height = 1.0
 sides = 10
@@ -264,26 +282,31 @@ sides = 10
 [node name="LeftWall" type="CSGBox3D" parent="TempEnvironment"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, -12.5, 0)
 use_collision = true
+collision_mask = 128
 size = Vector3(1, 27, 1)
 
 [node name="LeftWall2" type="CSGBox3D" parent="TempEnvironment"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.1597, -19.7935, 0)
 use_collision = true
+collision_mask = 128
 size = Vector3(1, 12.4131, 1)
 
 [node name="RighWall" type="CSGBox3D" parent="TempEnvironment"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, -6.6416, 0)
 use_collision = true
+collision_mask = 128
 size = Vector3(1, 15.2832, 1)
 
 [node name="Bottom" type="CSGBox3D" parent="TempEnvironment"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.85895, -26, 0)
 use_collision = true
+collision_mask = 128
 size = Vector3(21.7179, 1, 1)
 
 [node name="Bottom2" type="CSGBox3D" parent="TempEnvironment"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.6033, -13.7522, 0)
 use_collision = true
+collision_mask = 128
 size = Vector3(12.0439, 1, 1)
 
 [editable path="RopeGeneratorV2"]

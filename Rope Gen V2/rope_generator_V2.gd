@@ -101,7 +101,7 @@ func _physics_process(delta: float) -> void:
 		
 		# Draw Some Debug arrows and indicate the current max stress that has been put on the rope
 		#DebugDraw3D.draw_arrow(current_position, next_position, Color(1, 0, 0), 0.1)
-		DebugDraw2D.set_text("Stress", current_max_stress)
+		#DebugDraw2D.set_text("Stress", current_max_stress)
 		
 		if distance > current_max_stress and !broken:
 			current_max_stress = distance
@@ -212,8 +212,9 @@ func haul_rope() -> void:
 	first_link.queue_free()
 	
 func draw_debug_gizmo() -> void:
-	DebugDraw2D.set_text("Lengthening?", lengthening_toggle)
-	DebugDraw2D.set_text("Shortening?", shortening_toggle)
+	pass
+	#DebugDraw2D.set_text("Lengthening?", lengthening_toggle)
+	#DebugDraw2D.set_text("Shortening?", shortening_toggle)
 	
 func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("increase_rope_length"):

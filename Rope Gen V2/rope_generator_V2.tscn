@@ -16,6 +16,7 @@ ROPE_END = NodePath("RopeEnd")
 ROPE_TARGET = NodePath("RopeTarget")
 
 [node name="RopeStart" parent="." node_paths=PackedStringArray("ROPE_END") instance=ExtResource("3_cofhd")]
+TARGET_SPEED = 1.5
 ROPE_END = NodePath("../RopeEnd")
 
 [node name="RopeEnd" parent="." instance=ExtResource("3_e2n2s")]

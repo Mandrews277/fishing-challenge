@@ -15,12 +15,15 @@ vertex_color_use_as_albedo = true
 albedo_color = Color(0, 1, 0, 1)
 
 [node name="RopeStart" type="RigidBody3D"]
+collision_layer = 128
+collision_mask = 0
 axis_lock_linear_x = true
 axis_lock_linear_z = true
 axis_lock_angular_x = true
 axis_lock_angular_y = true
 gravity_scale = 0.01
 script = ExtResource("1_iqss6")
+TARGET_SPEED = 0.75
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_umihp")

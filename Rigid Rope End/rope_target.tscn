@@ -17,7 +17,8 @@ material = SubResource("StandardMaterial3D_og6hb")
 radius = 0.1
 height = 0.2
 
-[node name="RopeTarget" type="RigidBody3D" node_paths=PackedStringArray("LINK")]
+[node name="RopeTarget" type="RigidBody3D"]
+collision_layer = 128
 axis_lock_linear_z = true
 axis_lock_angular_x = true
 axis_lock_angular_y = true
@@ -25,7 +26,6 @@ physics_material_override = SubResource("PhysicsMaterial_s0hp3")
 gravity_scale = 0.0
 linear_damp = 10.0
 script = ExtResource("1_t1v4j")
-LINK = NodePath("")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_oafkc")
