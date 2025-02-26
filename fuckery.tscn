@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://valjcewbjq7c"]
+
+[ext_resource type="PackedScene" uid="uid://drjsi4sxite2s" path="res://TerrainGeneration/terrain_gen.tscn" id="1_o6ngp"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_x6x51"]
+noise_type = 4
+seed = 100
+
+[node name="Node3D" type="Node3D"]
+
+[node name="TerrainGen" parent="." instance=ExtResource("1_o6ngp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.215213, 1.19209e-07, -1.01533)
+mesh_resolution = 2.0
+gradient_scaling_factor = 50.0
+noise_scaling_factor = 10.0
+noise = SubResource("FastNoiseLite_x6x51")

@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://drjsi4sxite2s"]
+
+[ext_resource type="Script" path="res://TerrainGeneration/TerrainGen.gd" id="1_hedbn"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_dmlx1"]
+seed = 10
+
+[node name="TerrainGen" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.273376, 0.379868, -0.299942)
+script = ExtResource("1_hedbn")
+size_width = 100
+gradient_scaling_factor = null
+noise_scaling_factor = null
+noise = SubResource("FastNoiseLite_dmlx1")

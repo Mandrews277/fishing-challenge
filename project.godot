@@ -26,7 +26,11 @@ window/sdfgi/frames_to_update_lights=2
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/GoNote/plugin.cfg", "res://addons/editor_physics/plugin.cfg", "res://addons/phantom_camera/plugin.cfg", "res://addons/script-ide/plugin.cfg")
+enabled=PackedStringArray("res://addons/GoNote/plugin.cfg", "res://addons/Todo_Manager/plugin.cfg", "res://addons/editor_physics/plugin.cfg", "res://addons/phantom_camera/plugin.cfg", "res://addons/script-ide/plugin.cfg")
+
+[filesystem]
+
+import/blender/enabled=false
 
 [input]
 
